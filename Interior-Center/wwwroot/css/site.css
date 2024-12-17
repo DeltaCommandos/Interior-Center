@@ -1,0 +1,215 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.navigation {
+    display: flex;
+    justify-content: center;
+    background-color: #de002b;
+    padding: 10px 0;
+}
+
+    .navigation a {
+        margin: 0 15px;
+        text-decoration: none;
+        color: white;
+    }
+
+.footer {
+    height:100%;
+    position: center;
+    background-color:#212121;
+    color:lightgray;
+    height:auto;
+    margin-bottom:-5%;
+    
+}
+.compainer{
+    margin-top:10px;
+    display:flex;
+    align-content:center;
+    margin-left:30%;
+}
+
+
+
+.bbb {
+    display: flex;
+    justify-content: center;
+/*    align-items: center;
+*/    height: 100vh;
+}
+
+
+/*    v     Slider    v    */
+
+.slider {
+    margin-top: 20px;
+    position: center;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    align-content:center;
+    width:92.5%;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 1200px;
+    height: 400px;
+}
+
+.slide {
+    min-width: 100%;
+    height: 100%;
+}
+
+.button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.button-left {
+    left: 300px;
+    margin-top: -14%;
+    width:3%;
+}
+
+.button-right {
+    right: 400px;
+    margin-top: -14%;
+    width: 3%;
+}
+
+.button-left, .button-right {
+    background-color: aliceblue;
+    transition: background-color 0.3s ease;
+}
+
+    .button-left:hover, .button-right:hover {
+        background-color: #de002b;
+    }
+
+
+/*     ^    Slider    ^    */
+
+
+
+
+
+.txer{
+    margin-top:15px;
+    margin-bottom:15px;
+}
+
+
+/* Catalog on main */
+
+.custom {
+    display: flex;
+}
+
+.left-nav {
+    flex: 1;
+}
+
+.right-nav {
+    flex: 1;
+}
+
+
+/* Catalog itself */
+
+.catalog {
+    display: flex;
+}
+
+.item {
+    text-align: center;
+}
+
+
+
+/* Поп-ап */
+
+.modal {
+    display: none; /* Скрываем модальное окно по умолчанию */
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный фон с затемнением */
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Центрирование по горизонтали и вертикали */
+    padding: 20px;
+    border-radius: 8px; /* Закругленные углы */
+    background-color: white; /* Цвет фона модального окна */
+    width: 300px; /* Ширина модального окна */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень для эффекта глубины */
+}
+
+.close {
+    cursor: pointer; /* Указатель при наведении на кнопку закрытия */
+}
+
+
+
+.button-login {
+    background-color: #de002b;
+    transition: background-color 0.3s ease;
+    color:white;
+}
+
+    .button-login:hover {
+        background-color: #92001c;
+        color: white;
+    }
+
+
+
+
+.custom1 {
+    padding: 20px; /* Добавьте отступы при необходимости */
+}
+
+.left-nav1 {
+    flex: 1; /* Занимает оставшееся пространство */
+}
+
+.right-nav1 {
+    flex: 0 0 auto; /* Занимает только необходимое пространство */
+}

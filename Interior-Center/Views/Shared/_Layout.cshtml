@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Interior_Center.styles.css" asp-append-version="true" />
+
+
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+
+   
+</head>
+<body>
+
+    <header class="p-3 text-bg-dark">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <img src="/images/Logo.jpg" alt="image" border="0" width="120" height="75">
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    @* <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="d-inline-flex align-items-center btn btn-success btn-lg px-4 rounded-pill" type="button">
+                            Home
+                        </a>
+                    </li> *@
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Info" class="d-inline-flex align-items-center btn btn-lg px-4 rounded-pill" type="button">
+                            О нас
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Delivery" class="d-inline-flex align-items-center btn btn-lg px-4 rounded-pill" type="button">
+                            Доставка и оплата
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Contacts" class="d-inline-flex align-items-center btn btn-lg px-4 rounded-pill" type="button">
+                            Контакты
+                        </a>
+                    </li>
+                    
+                </ul>
+
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                    <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Поиск..." aria-label="Search">
+                </form>
+
+                <div class="text-end">
+                    <button type="button" class="btn button-login me-2" id="loginBtn">Вход</button>
+                    <button type="button" class="btn button-login" id="registerBtn">Регистрация</button>
+                </div>
+            </div>
+        </div>
+        
+    </header>
+
+    <!-- Модальное окно для входа -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close" id="closeLogin" style="right:0">&times;</span>
+            <h5>Вход</h5>
+            <form>
+                <div class="mb-3">
+                    <label for="loginEmail" class="form-label">Электронная почта</label>
+                    <input type="email" class="form-control" id="loginEmail" required>
+                </div>
+                <div class="mb-3">
+                    <label for="loginPassword" class="form-label">Пароль</label>
+                    <input type="password" class="form-control" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn button-login">Войти</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно для регистрации -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close" id="closeRegister" style="right:0">&times;</span>
+            <h5>Регистрация</h5>
+            <form>
+                <div class="mb-3">
+                    <label for="registerEmail" class="form-label">Электронная почта</label>
+                    <input type="email" class="form-control" id="registerEmail" required>
+                </div>
+                <div class="mb-3">
+                    <label for="registerPassword" class="form-label">Пароль</label>
+                    <input type="password" class="form-control" id="registerPassword" required>
+                </div>
+                <button type="submit" class="btn button-login">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+    <nav class="navigation">
+        <a href="blank.html">Гостинные</a>
+        <a href="blank.html">Спальни</a>
+        <a href="blank.html">Детские</a>
+        <a href="blank.html">Прихожие, Шкафы-купе</a>
+        <a href="blank.html">Зеркала, Полки</a>
+        <a href="blank.html">Кухни</a>
+        @* <div class="search">
+            <input type="text" placeholder="поиск">
+            <input type="button" value="искать">
+        </div> *@
+    </nav>
+
+
+    <div class="container bbb">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+
+    <footer class="border-top footer text-muted mt-auto text-center">
+        <div class="compainer">
+            <div>
+                Все права защищены © 2017-2024 | Интернет-магазин мебельной фабрики «Интерьер-Центр»
+
+            </div>
+            <br />
+        </div>
+        <div class="c1mp">
+            <a href="images/Политика конфиденциальности.pdf" target="_blank">Политика конфиденциальности</a>
+            @*             <a asp-area="" asp-controller="Home" asp-action="Privacy">Политика конфиденциальности</a>
+            *@
+        </div>
+
+    </footer>
+ 
+
+
+
+    <script>
+        // Получаем элементы модальных окон и кнопок
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const closeLogin = document.getElementById('closeLogin');
+        const closeRegister = document.getElementById('closeRegister');
+
+        // Открытие модального окна для входа
+        loginBtn.onclick = function () {
+            loginModal.style.display = "block";
+        }
+
+        // Открытие модального окна для регистрации
+        registerBtn.onclick = function () {
+            registerModal.style.display = "block";
+        }
+
+        // Закрытие модального окна для входа
+        closeLogin.onclick = function () {
+            loginModal.style.display = "none";
+        }
+
+        // Закрытие модального окна для регистрации
+        closeRegister.onclick = function () {
+            registerModal.style.display = "none";
+        }
+
+        // Закрытие модального окна при клике вне его
+        window.onclick = function (event) {
+            if (event.target == loginModal) {
+                html
+
+                loginModal.style.display = "none";
+            }
+            if (event.target == registerModal) {
+                registerModal.style.display = "none";
+            }
+        }
+    </script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

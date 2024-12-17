@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Фирменный магазин мебельной фабрики Интерьер-Центр";
+}
+<div class="row-cols-3">
+    <div class="slider">
+        <div class="slides">
+            <img class="slide" src="images/slider/gift.jpg" alt="АКЦИЯ!">
+            <img class="slide" src="images/slider/basya.jpg" alt="Ронда">
+            <img class="slide" src="images/slider/venec_00_100.jpg" alt="Венеция">
+            <img class="slide" src="images/slider/keln.jpg" alt="Кёльн">
+            <img class="slide" src="images/slider/nord.jpg" alt="Норд">
+        </div>
+    </div>
+    <button class="button button-left rounded-circle p-3" onclick="moveSlide(-1)">❮</button>
+    <button class="button button-right rounded-circle p-3" onclick="moveSlide(1)">❯</button>
+
+</div>
+
+
+<br />
+
+
+<div class="home-5 ">
+    <div class="container">
+        <div class="t3-module module about " id="Mod163">
+            <div class="module-inner">
+                <div class="module-ct">
+
+                    <section class="custom about d-flex justify-content-between">
+                        <nav class="left-nav">
+                            <h1>Интернет-магазин продукции фабрики «Интерьер-Центр» г.Москва</h1>
+                            <p>Изготавливаем мебель на современном оборудовании из прочных материалов, устойчивых к механическим повреждениям, царапинам и химическому воздействию. Это определяет долговечность модулей и гарантирует сохранение первоначального внешнего вида в процессе эксплуатации.</p>
+                            <p>Предлагаем востребованный ассортимент модульной функциональной мебели и создаем комплексные интерьерные решения «под ключ», что гарантирует нашим клиентам максимальное удобство при обустройстве жилья.</p>
+                            <p>Создаем оптимальное пространство для жизни, используя инновационные технологии в производстве функциональной корпусной мебели</p>
+                            <p class="download_btn">
+                                <a asp-area="" asp-controller="Catalog" asp-action="Index" class="d-inline-flex align-items-center btn button-login btn-lg px-4 rounded-pill" type="button">
+                                    Посмотреть каталог мебели
+                                </a>
+                            </p>
+                        </nav>
+                        <nav class="right-nav">
+                            <a asp-area="" asp-controller="Catalog" asp-action="Index" class="d-inline-flex align-items-center btn btn-lg px-4" type="button">
+                                <img height="500" width="500" src="/images/Main.jpg" alt="">
+                            </a>
+                        </nav>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    let currentIndex = 0;
+    let autoSlideInterval;
+
+    function moveSlide(direction) {
+        const slides = document.querySelector('.slides');
+        const totalSlides = document.querySelectorAll('.slide').length;
+
+        currentIndex += direction;
+
+        if (currentIndex < 0) {
+            currentIndex = totalSlides - 1; // Переход в конец при переходе влево
+        } else if (currentIndex >= totalSlides) {
+            currentIndex = 0; // Переход в начало при переходе вправо
+        }
+
+        const slideWidth = document.querySelector('.slide').clientWidth;
+        slides.style.transform = 'translateX(' + (-currentIndex * slideWidth) + 'px)';
+    }
+
+    function startAutoSlide() {
+        autoSlideInterval = setInterval(() => {
+            moveSlide(1);
+        }, 8000); // Переключение слайдов раз в минуту (60000 мс)
+    }
+
+    // Запускаем автоматическую прокрутку при загрузке страницы
+    window.onload = function () {
+        startAutoSlide();
+    };
+</script>
+
+
+
