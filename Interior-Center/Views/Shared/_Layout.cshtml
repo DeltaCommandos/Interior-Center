@@ -47,10 +47,10 @@
                     
                 </ul>
 
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                    <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Поиск..." aria-label="Search">
+                <form method="post" action="/Search/Index">
+                    <input type="text" name="query" placeholder="Введите первую букву..." class="form-control" />
+                    <button type="submit" class="btn btn-primary mt-2">Искать</button>
                 </form>
-
                 <div class="text-end">
                     <button type="button" class="btn button-login me-2" id="loginBtn">Вход</button>
                     <button type="button" class="btn button-login" id="registerBtn">Регистрация</button>

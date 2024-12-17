@@ -1,4 +1,3 @@
-using Interior_Center.Data;
 using Interior_Center.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

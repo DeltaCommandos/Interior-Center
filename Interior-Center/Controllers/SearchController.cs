@@ -1,40 +1,56 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using Interior_Center.Models;
 using Interior_Center.Data;
 
 namespace Interior_Center.Controllers
 {
-    public class CatalogController : Controller
+    public class SearchController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public CatalogController(ApplicationDbContext context)
+        // Внедрение ApplicationDbContext через конструктор
+        public SearchController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public IActionResult Index()
+        [HttpPost]
+        public IActionResult Index(string query)
         {
-            //var catalogItems = _context.Catalog.ToList();
-            //return View(catalogItems);
-            return View();
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                ViewBag.Message = "Введите хотя бы одну букву.";
+                return View();
+            }
 
+            // Поиск по базе данных
+            var results = _context.Catalog
+                .Where(p => p.Name.ToLower().StartsWith(query.ToLower()))
+                .ToList();
+
+            return View(results);
+        }
+        // GET: SearchController
+        public ActionResult Index()
+        {
+            return View();
         }
 
-        // GET: CatalogController/Details/5
+        // GET: SearchController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: CatalogController/Create
+        // GET: SearchController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CatalogController/Create
+        // POST: SearchController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -49,13 +65,13 @@ namespace Interior_Center.Controllers
             }
         }
 
-        // GET: CatalogController/Edit/5
+        // GET: SearchController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: CatalogController/Edit/5
+        // POST: SearchController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -70,13 +86,13 @@ namespace Interior_Center.Controllers
             }
         }
 
-        // GET: CatalogController/Delete/5
+        // GET: SearchController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: CatalogController/Delete/5
+        // POST: SearchController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

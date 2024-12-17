@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Interior_Center.Models.Catalog>
+
+
+
+@if (ViewBag.Message != null)
+{
+    <p>@ViewBag.Message</p>
+}
+
+@if (Model != null && Model.Any())
+{
+    <h2>Результаты поиска:</h2>
+    <ul>
+        @foreach (var product in Model)
+        {
+            <li>
+                <strong>@product.Name</strong><br />
+                Описание: @product.Short<br />
+                Цена: @product.Price руб.<br />
+                Категория: @product.Type
+
+            </li>
+            <li>
+                
+            </li>
+        }
+    </ul>
+}
+else if (Model != null)
+{
+    <p>Ничего не найдено.</p>
+}
