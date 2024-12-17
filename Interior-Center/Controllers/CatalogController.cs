@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Http;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Interior_Center.Data;
+using Interior_Center.Models;
 
 namespace Interior_Center.Controllers
 {
@@ -16,79 +16,53 @@ namespace Interior_Center.Controllers
 
         public IActionResult Index()
         {
-            //var catalogItems = _context.Catalog.ToList();
-            //return View(catalogItems);
-            return View();
-
+            // Получение всех товаров из базы данных
+            var catalogItems = _context.Catalog.ToList();
+            return View(catalogItems);
         }
 
-        // GET: CatalogController/Details/5
-        public ActionResult Details(int id)
+        // Фильтрация по типу "Спальня"
+        public IActionResult Bedroom()
         {
-            return View();
+            var bedroomItems = _context.Catalog
+                .Where(item => item.Type == "Спальня")
+                .ToList();
+            return View("Index", bedroomItems); // Использует то же представление
         }
-
-        // GET: CatalogController/Create
-        public ActionResult Create()
+        public IActionResult Kitchen()
         {
-            return View();
+            var KitchenItems = _context.Catalog
+                .Where(item => item.Type == "Кухня")
+                .ToList();
+            return View("Index", KitchenItems); // Использует то же представление
         }
-
-        // POST: CatalogController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Childroom()
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var ChildroomItems = _context.Catalog
+                .Where(item => item.Type == "Детская")
+                .ToList();
+            return View("Index", ChildroomItems); // Использует то же представление
         }
-
-        // GET: CatalogController/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Livingroom()
         {
-            return View();
+            var LivingItems = _context.Catalog
+                .Where(item => item.Type == "Гостинная")
+                .ToList();
+            return View("Index", LivingItems); // Использует то же представление
         }
-
-        // POST: CatalogController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Corridor()
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var CorridorItems = _context.Catalog
+                .Where(item => item.Type == "Прихожая")
+                .ToList();
+            return View("Index", CorridorItems); // Использует то же представление
         }
-
-        // GET: CatalogController/Delete/5
-        public ActionResult Delete(int id)
+        public IActionResult Mirror()
         {
-            return View();
-        }
-
-        // POST: CatalogController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var MirrorItems = _context.Catalog
+                .Where(item => item.Type == "Полка")
+                .ToList();
+            return View("Index", MirrorItems); // Использует то же представление
         }
     }
 }
