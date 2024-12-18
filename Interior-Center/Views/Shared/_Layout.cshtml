@@ -11,7 +11,6 @@
 
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
-
    
 </head>
 <body>
@@ -51,9 +50,26 @@
                     <input type="text" name="query" placeholder="Введите первую букву..." class="form-control" />
                     <button type="submit" class="btn btn-primary mt-2">Искать</button>
                 </form>
-                <div class="text-end">
-                    <button type="button" class="btn button-login me-2" id="loginBtn">Вход</button>
-                    <button type="button" class="btn button-login" id="registerBtn">Регистрация</button>
+                @{
+                    var userEmail = Context.Session.GetString("UserEmail");
+                }
+
+                <div class="header-buttons">
+                    @if (string.IsNullOrEmpty(userEmail))
+                    {
+                        <div class="text-end">
+                            <button onclick="openLogin()" type="button" class="btn button-login me-2" id="loginBtn">Вход</button>
+                            <button onclick="openRegister()" type="button" class="btn button-login" id="registerBtn">Регистрация</button>
+                        </div>
+                    }
+                    else
+                    {
+                        <span>@userEmail</span>
+                        <button onclick="openCart()">Корзина</button>
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                            <button type="submit">Выйти</button>
+                        </form>
+                    }
                 </div>
             </div>
         </div>
@@ -65,14 +81,14 @@
         <div class="modal-content">
             <span class="close" id="closeLogin" style="right:0">&times;</span>
             <h5>Вход</h5>
-            <form>
+            <form method="post" action="/Account/Login">
                 <div class="mb-3">
                     <label for="loginEmail" class="form-label">Электронная почта</label>
-                    <input type="email" class="form-control" id="loginEmail" required>
+                    <input type="email" class="form-control" id="loginEmail" name="email" required>
                 </div>
                 <div class="mb-3">
                     <label for="loginPassword" class="form-label">Пароль</label>
-                    <input type="password" class="form-control" id="loginPassword" required>
+                    <input type="password" class="form-control" id="loginPassword" name="password" required>
                 </div>
                 <button type="submit" class="btn button-login">Войти</button>
             </form>
@@ -84,20 +100,19 @@
         <div class="modal-content">
             <span class="close" id="closeRegister" style="right:0">&times;</span>
             <h5>Регистрация</h5>
-            <form>
+            <form method="post" action="/Account/Register">
                 <div class="mb-3">
                     <label for="registerEmail" class="form-label">Электронная почта</label>
-                    <input type="email" class="form-control" id="registerEmail" required>
+                    <input type="email" class="form-control" id="registerEmail" name="email" required>
                 </div>
                 <div class="mb-3">
                     <label for="registerPassword" class="form-label">Пароль</label>
-                    <input type="password" class="form-control" id="registerPassword" required>
+                    <input type="password" class="form-control" id="registerPassword" name="password" required>
                 </div>
                 <button type="submit" class="btn button-login">Зарегистрироваться</button>
             </form>
         </div>
     </div>
-
 
 
 
@@ -122,6 +137,48 @@
             @RenderBody()
         </main>
     </div>
+
+
+
+
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <span class="close" id="closeCart">&times;</span>
+            <h5>Ваша корзина</h5>
+            <div id="cartItems"></div>
+            <button onclick="checkout()">Оформить заказ</button>
+        </div>
+    </div>
+
+    <script>
+        function openCart() {
+            fetch('/Cart/GetCart')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        let cartItems = document.getElementById('cartItems');
+                        cartItems.innerHTML = '';
+                        data.items.forEach(item => {
+                            cartItems.innerHTML += `
+                                    <div>
+                                        <p>${item.name} - ${item.price} руб</p>
+                                        <button onclick="removeFromCart(${item.id})">Удалить</button>
+                                    </div>
+                                `;
+                        });
+                        document.getElementById('cartModal').style.display = 'block';
+                    }
+                });
+        }
+
+        function removeFromCart(id) {
+            fetch('/Cart/RemoveFromCart', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id })
+            }).then(() => openCart());
+        }
+    </script>
 
 
 

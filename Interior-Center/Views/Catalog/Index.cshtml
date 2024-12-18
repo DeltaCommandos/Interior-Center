@@ -14,7 +14,24 @@
                 <span style="color:red;">@item.Price руб</span>
             </h3>
             <p>@item.Short</p>
+            <button onclick="addToCart(@item.ID)">Добавить в корзину</button>
         </div>
     }
 </div>
-<a href="@Url.Action("Bedroom", "Catalog")" style="margin: 10px;">Показать товары для спальни</a>
+
+<script>
+    function addToCart(itemId) {
+        fetch('/Cart/AddToCart', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: itemId })
+        }).then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Товар добавлен в корзину!");
+                } else {
+                    alert("Ошибка: " + data.message);
+                }
+            });
+    }
+</script>

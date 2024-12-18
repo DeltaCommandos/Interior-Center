@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Interior_Center.Models;
-
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Text.Json;
 
 namespace Interior_Center.Data
 {
@@ -19,9 +20,14 @@ namespace Interior_Center.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            var converter = new ValueConverter<List<string>?, string>(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null), // Преобразование в JSON
+                v => string.IsNullOrEmpty(v) ? new List<string>() : JsonSerializer.Deserialize<List<string>>(v, new JsonSerializerOptions())
+            );
 
-
+            modelBuilder.Entity<Users>()
+                .Property(u => u.Cart)
+                .HasConversion(converter); // Применяем конвертер
         }
     }
 }
