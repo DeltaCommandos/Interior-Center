@@ -213,3 +213,40 @@ body {
 .right-nav1 {
     flex: 0 0 auto; /* Занимает только необходимое пространство */
 }
+
+
+
+
+
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    / Чтобы природа родилась правильно /
+}
+
+    .image-container imggs {
+        display: block;
+        / Убирает отступы под изображением /
+    }
+
+    .image-container .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        / Полупрозрачный фон / color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        / Скрываем текст по умолчанию / transition: opacity 0.3s ease;
+        / Плавный переход /
+    }
+
+    .image-container:hover .overlay {
+        opacity: 1;
+        / Показываем текст при наведении /
+    }

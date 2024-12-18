@@ -151,6 +151,8 @@
     </div>
 
     <script>
+        const closeCart = document.getElementById('closeCart');
+
         function openCart() {
             fetch('/Cart/GetCart')
                 .then(response => response.json())
@@ -178,6 +180,10 @@
                 body: JSON.stringify({ id })
             }).then(() => openCart());
         }
+        closeCart.onclick = function () {
+            loginModal.style.display = "none";
+        }
+
     </script>
 
 
