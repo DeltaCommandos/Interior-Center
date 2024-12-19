@@ -43,12 +43,22 @@
                             Контакты
                         </a>
                     </li>
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Reviews" class="d-inline-flex align-items-center btn btn-lg px-4 rounded-pill" type="button">
+                            Отзывы
+                        </a>
+                    </li>
+
                     
                 </ul>
 
-                <form method="post" action="/Search/Index">
-                    <input type="text" name="query" placeholder="Введите первую букву..." class="form-control" />
-                    <button type="submit" class="btn btn-primary mt-2">Искать</button>
+                <form class="row-cols-2" method="post" action="/Search/Index">
+                    <input type="text" name="query" placeholder="Поиск..." class="form-control" />
+                    <button style="btn rounded-circle p-2 lh-1" type="submit" class="btn ">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                    </button>
                 </form>
                 @{
                     var userEmail = Context.Session.GetString("UserEmail");
@@ -64,10 +74,18 @@
                     }
                     else
                     {
-                        <span>@userEmail</span>
-                        <button onclick="openCart()">Корзина</button>
+                        @* <span>@userEmail</span> *@
+                        <button class="btn btn-danger d-inline-flex align-items-center" onclick="openCart()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+                                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                            </svg>
+                        </button>
                         <form method="post" asp-controller="Account" asp-action="Logout">
-                            <button type="submit">Выйти</button>
+                            <button class="btn btn-danger d-inline-flex align-items-center" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open-fill" viewBox="0 0 16 16">
+                                    <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15zM11 2h.5a.5.5 0 0 1 .5.5V15h-1zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
+                                </svg>
+                            </button>
                         </form>
                     }
                 </div>
@@ -82,6 +100,7 @@
             <span class="close" id="closeLogin" style="right:0">&times;</span>
             <h5>Вход</h5>
             <form method="post" action="/Account/Login">
+                
                 <div class="mb-3">
                     <label for="loginEmail" class="form-label">Электронная почта</label>
                     <input type="email" class="form-control" id="loginEmail" name="email" required>
@@ -102,6 +121,23 @@
             <h5>Регистрация</h5>
             <form method="post" action="/Account/Register">
                 <div class="mb-3">
+                    <label for="registerSurname" class="form-label">Фамилия</label>
+                    <input type="text" class="form-control" id="registerSurname" name="surname" required>
+                </div>
+                <div class="mb-3">
+                    <label for="registerName" class="form-label">Имя</label>
+                    <input type="text" class="form-control" id="registerName" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="registerFathername" class="form-label">Отчество</label>
+                    <input type="text" class="form-control" id="registerFathername" name="fathername">
+                </div>
+                <div class="mb-3">
+                    <label for="registerPhone" class="form-label">Номер телефона</label>
+                    <input type="tel" class="form-control" id="registerPhone" name="phoneNumber" required>
+                </div>
+
+                <div class="mb-3">
                     <label for="registerEmail" class="form-label">Электронная почта</label>
                     <input type="email" class="form-control" id="registerEmail" name="email" required>
                 </div>
@@ -109,7 +145,13 @@
                     <label for="registerPassword" class="form-label">Пароль</label>
                     <input type="password" class="form-control" id="registerPassword" name="password" required>
                 </div>
-                <button type="submit" class="btn button-login">Зарегистрироваться</button>
+
+                <div class="mb-3">
+                    <input type="checkbox" id="licenseAgreement" name="option1" onchange="toggleSubmitButton()">
+                    <label for="licenseAgreement">Я принимаю лицензионное соглашение</label>
+                </div>
+
+                <button type="submit" class="btn button-login" id="registerButton" disabled>Зарегистрироваться</button>
             </form>
         </div>
     </div>
@@ -119,13 +161,13 @@
 
 
     <nav class="navigation">
-        <a href="@Url.Action("Livingroom", "Catalog")">Гостинные</a>
-        <a href="@Url.Action("Bedroom", "Catalog")">Спальни</a>
+@*         <a href="@Url.Action("Livingroom", "Catalog")">Гостинные</a>
+ *@        <a href="@Url.Action("Bedroom", "Catalog")">Спальни</a>
         <a href="@Url.Action("Childroom", "Catalog")">Детские</a>
-        <a href="@Url.Action("Corridor", "Catalog")">Прихожие, Шкафы-купе</a>
-        <a href="@Url.Action("Mirror", "Catalog")">Зеркала, Полки</a>
-        <a href="@Url.Action("Kitchen", "Catalog")">Кухни</a>
-        @* <div class="search">
+@*         <a href="@Url.Action("Corridor", "Catalog")">Прихожие, Шкафы-купе</a>
+ *@        <a href="@Url.Action("Mirror", "Catalog")">Зеркала, Полки</a>
+@*         <a href="@Url.Action("Kitchen", "Catalog")">Кухни</a>
+ *@        @* <div class="search">
             <input type="text" placeholder="поиск">
             <input type="button" value="искать">
         </div> *@
@@ -183,6 +225,20 @@
         closeCart.onclick = function () {
             loginModal.style.display = "none";
         }
+
+        function toggleSubmitButton() {
+            const checkbox = document.getElementById("licenseAgreement");
+            const submitButton = document.getElementById("registerButton");
+
+            // Активируем кнопку, если чекбокс отмечен, иначе отключаем
+            submitButton.disabled = !checkbox.checked;
+        }
+
+        // Вызываем функцию при загрузке страницы, чтобы установить начальное состояние кнопки
+        document.addEventListener('DOMContentLoaded', (event) => {
+            toggleSubmitButton();
+        });
+
 
     </script>
 

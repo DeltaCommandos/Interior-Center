@@ -1,0 +1,36 @@
+﻿@model Interior_Center.Models.Reviews
+
+<br />
+<h1 class="page-top__title text48 text28-tablet medium-text">
+    Обратная связь
+</h1>
+<br />
+
+
+<form asp-action="Reviews" class="p-4 p-md-5 bg-body-tertiary">
+
+
+    <div class="form-floating mb-3 okoshko">
+        <input type="text" class="form-control text-black" id="floatingInput" asp-for="Name">
+        <label class="text-black" for="floatingInput">Имя</label>
+    </div>
+    
+
+    <div class="form-floating mb-3 okoshko">
+        <input type="email" class="form-control text-black" id="floatingPassword" asp-for="Email">
+        <label class="text-black" for="floatingPassword">Почта</label>
+    </div>
+
+    
+    <div class="form-floating">
+        <textarea class="form-control wide-input" id="floatingInput" asp-for="Description"></textarea>
+        <label class="text-black" for="floatingPassword">Комментарий</label>
+    </div>
+
+    <br />
+
+    <button class="w-100 btn btn-lg btn-danger" type="submit">Отправить</button>
+
+
+
+</form>

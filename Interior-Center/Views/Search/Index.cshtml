@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Interior_Center.Models.Catalog>
 
-
+<br />
 
 @if (ViewBag.Message != null)
 {
@@ -10,19 +10,24 @@
 @if (Model != null && Model.Any())
 {
     <h2>Результаты поиска:</h2>
-    <ul>
+    
         @foreach (var product in Model)
         {
-            <li>
-                <strong>@product.Name</strong><br />
-                Описание: @product.Short<br />
-                Цена: @product.Price руб.<br />
-                Категория: @product.Type
-                <img height="140" width="200" src="@product.Image" alt="@product.Name" />
-
-            </li>
+                <div class="item" style="margin: 20px; display: inline-block; text-align: center; position: relative;">
+                    <a href="#" onclick="openPopup('@product.Image', '@product.Name', @product.Price, '@product.Long'); return false;">
+                        <div class="image-container">
+                            <img class="imggs" height="140" width="200" src="@product.Image" alt="@product.Name" />
+                            <div class="overlay">@product.Short</div>
+                        </div>
+                    </a>
+                    <h3>
+                        <a href="#">@product.Name</a> -
+                        <span style="color:red;">@product.Price руб</span>
+                    </h3>
+                    <button onclick="addToCart(@product.ID)">Добавить в корзину</button>
+                </div>
         }
-    </ul>
+    
 }
 else if (Model != null)
 {

@@ -10,6 +10,9 @@ namespace Interior_Center.Data
         public DbSet<Catalog> Catalog { get; set; }
 
         public DbSet<Users> Users { get; set; }
+
+        public DbSet<Reviews> Reviews { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
         {
@@ -20,14 +23,17 @@ namespace Interior_Center.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var converter = new ValueConverter<List<string>?, string>(
+            var converter = new ValueConverter<List<int>, string>(
                 v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null), // Преобразование в JSON
-                v => string.IsNullOrEmpty(v) ? new List<string>() : JsonSerializer.Deserialize<List<string>>(v, new JsonSerializerOptions())
+                v => string.IsNullOrEmpty(v) ? new List<int>() : JsonSerializer.Deserialize<List<int>>(v, new JsonSerializerOptions())
             );
 
             modelBuilder.Entity<Users>()
                 .Property(u => u.Cart)
                 .HasConversion(converter); // Применяем конвертер
+
+            modelBuilder.Entity<Reviews>()
+                .HasNoKey();
         }
     }
 }

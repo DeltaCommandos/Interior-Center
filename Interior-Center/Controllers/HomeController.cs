@@ -25,6 +25,10 @@ namespace Interior_Center.Controllers
         {
             return View();
         }
+        public IActionResult Reviews()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {
@@ -51,21 +55,5 @@ namespace Interior_Center.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        //[HttpGet]
-        //public IActionResult Search(string query)
-        //{
-        //    // Проверка на пустой запрос
-        //    if (string.IsNullOrWhiteSpace(query))
-        //    {
-        //        return View("~/Views/Home/search.cshtml", Enumerable.Empty<Catalog>());
-        //    }
-
-        //    // Поиск по товарам
-        //    var results = _context.Catalog
-        //        .Where(g => g.Name.Contains(query) || g.Short.Contains(query) || g.Long.Contains(query))
-        //        .ToList();
-
-        //    return View("~/Views/Home/search.cshtml", results);
-        //}
     }
 }

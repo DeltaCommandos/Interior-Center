@@ -2,73 +2,63 @@
 
 <h1 style="text-align: center;">Каталог</h1>
 <br />
+<div class="catalog-container">
 <div class="catalog">
     @foreach (var item in Model)
     {
-        <div class="item" style="margin: 20px; display: inline-block; text-align: center; position: relative;">
-            <a href="#" onclick="openPopup('@item.Image', '@item.Name', @item.Price, '@item.Long'); return false;">
-                <div class="image-container">
-                    <img class="imggs" height="140" width="200" src="@item.Image" alt="@item.Name" />
-                    <div class="overlay">@item.Short</div>
+        <div class="item">
+            <div class="image-container">
+                <img class="imggs" height="140" width="200" src="@item.Image" alt="@item.Name" />
+                <div class="overlay">@item.Short</div>
+            </div>
+            <div class="zagolovok">
+                <h5>
+                    @item.Name -
+                    <span style="color:red;">@item.Price руб</span>
+                </h5>
+                <div>
+                    @item.Short
                 </div>
-            </a>
-            <h3>
-                <a href="#">@item.Name</a> -
-                <span style="color:red;">@item.Price руб</span>
-            </h3>
+            </div>
             <button onclick="addToCart(@item.ID)">Добавить в корзину</button>
+            <button onclick="openLongStory(@item.Image, @item.Name, @item.Price, @item.Long)">Подробнее</button>
         </div>
     }
+    </div>
 </div>
 
+
+
 <!-- Поп-ап окно -->
-<div id="popup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.7); z-index:1000;">
-    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border-radius:5px; width:300px;">
-        <span onclick="closePopup()" style="cursor:pointer; float:right;">&times;</span>
-        <img id="popupImage" height="140" width="200" src="" alt="" />
-        <h3 id="popupName"></h3>
+<div id="longStoryPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closeLongStory()">&times;</span>
+        <img id="popupImage" src="" alt="" />
+        <h5 id="popupName"></h5>
         <p id="popupPrice"></p>
         <p id="popupLong"></p>
     </div>
 </div>
 
-<style>
-    .tooltip {
-        display: none; 
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 5px;
-        border-radius: 5px;
-        white-space: nowrap; 
-        z-index: 10;
-    }
-
-    .item:hover .tooltip {
-        display: block; 
-    }
-</style>
-
 <script>
-    function openPopup(image, name, price, longDescription) {
-        document.getElementById('popupImage').src = image;
-        document.getElementById('popupName').innerText = name;
-        document.getElementById('popupPrice').innerText = price + ' руб';
-        document.getElementById('popupLong').innerText = longDescription;
-        document.getElementById('popup').style.display = 'block';
+    function openLongStory(image, name, price, longDescription) {
+        document.getElementById("popupImage").src = image;
+        document.getElementById("popupName").innerText = name;
+        document.getElementById("popupPrice").innerText = price + " руб";
+        document.getElementById("popupLong").innerText = longDescription;
+
+        document.getElementById("longStoryPopup").style.display = "block";
     }
 
-    function closePopup() {
-        document.getElementById('popup').style.display = 'none';
+    function closeLongStory() {
+        document.getElementById("longStoryPopup").style.display = "none";
     }
 
+    // Закрытие поп-апа при клике вне его содержимого
     window.onclick = function (event) {
-        var popup = document.getElementById('popup');
+        var popup = document.getElementById("longStoryPopup");
         if (event.target == popup) {
-            closePopup();
+            popup.style.display = "none";
         }
     }
 </script>
@@ -79,7 +69,7 @@
         fetch('/Cart/AddToCart', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: itemId })
+            body: JSON.stringify(itemId)
         }).then(response => response.json())
             .then(data => {
                 if (data.success) {

@@ -16,7 +16,7 @@ namespace Interior_Center.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(string email, string password)
+        public IActionResult Register(string email, string password, string surname, string name, string fathername, int phoneNumber)
         {
             if (_context.Users.Any(u => u.Email == email))
             {
@@ -28,7 +28,11 @@ namespace Interior_Center.Controllers
             {
                 Email = email,
                 Password = password,
-                Cart = new List<string>() // Инициализируем пустым списком
+                Surname = surname,
+                Name = name,
+                Fathername = fathername,
+                PhoneNumber = phoneNumber,
+                Cart = new List<int>() // Инициализируем пустым списком
             };
 
             _context.Users.Add(user);
@@ -61,5 +65,7 @@ namespace Interior_Center.Controllers
             HttpContext.Session.Remove("UserEmail");
             return RedirectToAction("Index", "Home");
         }
+
+        
     }
 }
